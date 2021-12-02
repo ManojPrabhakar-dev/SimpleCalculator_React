@@ -1,0 +1,140 @@
+ /* General Styles */
+ * {
+   margin : 0;
+   padding: 0;
+ }
+
+ body {
+   font-family: "McLaren", sans-serif;
+   line-height: 1.6;
+   background : #fff;
+ }
+
+ /* Padding */
+ .py-1 {
+   padding: 1rem 0;
+ }
+
+ .py-2 {
+   padding: 2rem 0;
+ }
+
+ .py-3 {
+   padding: 3rem 0;
+ }
+
+ .py-4 {
+   padding: 4rem 0;
+ }
+
+
+ /* Margin */
+ .my-1 {
+   margin: 1rem 0;
+ }
+
+ .my-2 {
+   margin: 2rem 0;
+ }
+
+ .my-3 {
+   margin: 3rem 0;
+ }
+
+ .my-4 {
+   margin: 4rem 0;
+ }
+
+
+ .App {
+   display           : grid;
+   grid-template-rows: 1fr 1fr 5fr 1fr;
+   height            : 100vh;
+ }
+
+ .App-header {
+   background-color: #282c34;
+   min-height      : 100vh;
+   display         : flex;
+   flex-direction  : column;
+   align-items     : center;
+   justify-content : center;
+   font-size       : calc(10px + 2vmin);
+   color           : white;
+ }
+
+ /* Header */
+ .header {
+   text-align: center;
+   box-shadow: 0 0 10px 4px #e79f4cef;
+ }
+
+ .header_bg {
+   background: rgb(241, 190, 21);
+ }
+
+ /* Create Tast */
+ .createTask {
+   display            : flex;
+   justify-content    : center;
+   align-items        : center;
+   /* background-color: rgb(155, 115, 62); */
+ }
+
+ .inputTask {
+   width                     : 300px;
+   /* height                 : 20px; */
+   margin-right              : 2rem;
+   font-size                 : 18px;
+   /* padding                : 5px !important */
+   /*border-radius           : 5px; */
+ }
+
+ .addTask {
+   width        : 80px;
+   height       : 40px;
+   border-radius: 5px;
+ }
+
+ .container {
+   width : 50%;
+   height: 100%;
+   margin: auto;
+ }
+
+ /* Task List Area */
+ .taskItem {
+   display              : grid;
+   grid-template-columns: 1fr 8fr 2fr;
+   font-size            : 22px;
+   padding              : 1rem;
+ }
+
+ .taskCheck {
+   display        : flex;
+   justify-content: center;
+   align-items    : center;
+ }
+
+ /* .taskName {
+   margin-left: 5rem;
+
+   justify-content: left;
+ } */
+
+ .done {
+   text-decoration: line-through;
+ }
+
+ /* Footer */
+ .footer {
+   display        : flex;
+   justify-content: center;
+   align-items    : center;
+   color          : rgb(180, 176, 176);
+
+ }
+
+ .footerText {
+   padding-bottom: 1rem;
+ }
