@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import "./App.css";
 import { Box } from "@mui/material";
 import Display from "./components/Display";
@@ -27,9 +27,9 @@ function App() {
     "=",
   ];
 
-  const opKeys = ["%", "/", "X", "-", "+", ".", "="];
+  const opKeys = ["%", "/", "X", "-", "+"];
 
-  const genKey = ["AC", "Del", "="];
+  const genKey = ["AC", "Del", "=", "."];
 
   const [calc, setCalc] = useState({
     num1: 0,
@@ -38,6 +38,9 @@ function App() {
     expression: "",
     result: "",
   });
+
+  const isN1Decimal = useRef(false);
+  const isN2Decimal = useRef(false);
 
   function calculate(n2) {
     let result = 0;
@@ -60,10 +63,6 @@ function App() {
     }
 
     return result;
-  }
-
-  function isInvalidOperator(keyInput) {
-    return keyInput !== "Del" && keyInput !== "AC" && keyInput !== "=";
   }
 
   function handleDelOp() {
@@ -105,11 +104,13 @@ function App() {
         ...calc,
         operator: keyInput,
         expression: `${calc.num1} ${keyInput}`,
-        result: isInvalidOperator() ? "0" : calc.result,
+        result: calc.result,
       });
       return;
     } else if (genKey.includes(keyInput)) {
       if (keyInput === "AC") {
+        isN1Decimal.current = false;
+        isN2Decimal.current = false;
         setCalc({
           ...calc,
           num1: 0,
@@ -118,6 +119,33 @@ function App() {
           expression: "0",
           result: "",
         });
+        return;
+      } else if (keyInput === ".") {
+        if (calc.operator === "") {
+          if (isN1Decimal.current) {
+            return;
+          }
+          let n1 = parseFloat(calc.num1 + keyInput + "0");
+          isN1Decimal.current = true;
+          setCalc({
+            ...calc,
+            num1: n1,
+            expression: `${n1}.`,
+            result: `= ${n1}`,
+          });
+        } else {
+          if (isN2Decimal.current) {
+            return;
+          }
+          let n2 = parseFloat(calc.num2 + keyInput + "0");
+          isN2Decimal.current = true;
+          setCalc({
+            ...calc,
+            num2: n2,
+            expression: `${calc.num1} ${calc.operator} ${n2}.`,
+            result: `= ${calculate(n2)}`,
+          });
+        }
         return;
       } else {
         if (keyInput === "Del") {
@@ -128,10 +156,12 @@ function App() {
     }
 
     if (calc.operator === "") {
-      let n1 = parseFloat(calc.num1 + keyInput);
+      let check = isN1Decimal.current ? "." : "";
+      let n1 = parseFloat(`${calc.num1}${check}${keyInput}`);
       setCalc({ ...calc, num1: n1, expression: `${n1}`, result: `= ${n1}` });
     } else {
-      let n2 = parseFloat(calc.num2 + keyInput);
+      let check = isN2Decimal.current ? "." : "";
+      let n2 = parseFloat(`${calc.num2}${check}${keyInput}`);
       setCalc({
         ...calc,
         num2: n2,
